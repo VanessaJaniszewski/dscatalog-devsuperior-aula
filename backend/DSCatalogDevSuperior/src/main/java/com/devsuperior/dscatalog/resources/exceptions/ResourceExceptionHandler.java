@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 
-
-
-
-
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	

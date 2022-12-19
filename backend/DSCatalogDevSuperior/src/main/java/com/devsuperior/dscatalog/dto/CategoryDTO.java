@@ -6,10 +6,12 @@ import java.time.Instant;
 import com.devsuperior.dscatalog.entities.Category;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class CategoryDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

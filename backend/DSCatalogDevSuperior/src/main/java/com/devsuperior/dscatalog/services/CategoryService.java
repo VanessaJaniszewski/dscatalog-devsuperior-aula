@@ -1,5 +1,7 @@
 package com.devsuperior.dscatalog.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,6 +34,17 @@ public class CategoryService {
 //		for (Category cat: list) {
 //			listDTO.add(new CategoryDTO(cat));}
 	}
+	
+	@Transactional(readOnly = true)
+	public List<CategoryDTO> findAll(){
+		List<Category> list = repository.findAll();
+		List<CategoryDTO> listDTO = new ArrayList<>();
+		for (Category cat: list) {
+			listDTO.add(new CategoryDTO(cat));}
+	return listDTO; 
+	}
+	
+	
 	@Transactional(readOnly =true)
 	public CategoryDTO findByID(Long id) {
 		try {

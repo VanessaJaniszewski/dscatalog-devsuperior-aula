@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 
@@ -16,10 +20,13 @@ public class ProductDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank(message = "Please insert the name.")
 	private String name;
 	private String description;
+	@Positive(message = "The price needs to be positive.")
 	private Double price;
 	private String imgUrl;
+	@PastOrPresent(message = "Please insert a past or presente date.")
 	private Instant date = Instant.now();
 	private List<CategoryDTO> categories = new ArrayList<>();
 	

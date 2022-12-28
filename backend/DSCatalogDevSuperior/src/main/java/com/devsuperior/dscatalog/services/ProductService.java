@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,22 +33,23 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(PageRequest pageRequest){
-		Page<Product> list = repository.findAll(pageRequest);
+	public Page<ProductDTO> findAllPaged(Pageable pageable){
+		Page<Product> list = repository.findAll(pageable);
 		return list.map(x -> new ProductDTO(x));
+	}
 //		List<ProductDTO> listDTO = new ArrayList<>();
 //		for (Product cat: list) {
 //			listDTO.add(new ProductDTO(cat));}
-	}
-	
-	@Transactional(readOnly = true)
-	public List<ProductDTO> findAll(){
-		List<Product> list = repository.findAll();
-		List<ProductDTO> listDTO = new ArrayList<>();
-		for (Product cat: list) {
-			listDTO.add(new ProductDTO(cat));}
-		return listDTO;
-	}
+//	
+//	
+//	@Transactional(readOnly = true)
+//	public List<ProductDTO> findAll(){
+//		List<Product> list = repository.findAll();
+//		List<ProductDTO> listDTO = new ArrayList<>();
+//		for (Product cat: list) {
+//			listDTO.add(new ProductDTO(cat));}
+//		return listDTO;
+//	}
 	
 	
 	
@@ -85,6 +86,8 @@ public class ProductService {
 			throw new ResourceNotFoundException("Entity was not found.");
 		}
 	}
+	
+	@Transactional
 	public void delete(Long id) {
 		try {
 		repository.deleteById(id);

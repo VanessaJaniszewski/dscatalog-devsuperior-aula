@@ -27,15 +27,14 @@ public class UserDTO implements Serializable{
 	private String lastName;
 	@Email(message = "Please insert a valid email.")
 	private String email;
-	private String password;
 	
 	Set<RoleDTO> rolesDto = new HashSet<>();
 	
 	public UserDTO(User user) {
-		this.id = user.getId();
-		this.firstName = user.getFirstName();
-		this.lastName = user.getLastName();
-		this.email = user.getEmail();
+		id = user.getId();
+		firstName = user.getFirstName();
+		lastName = user.getLastName();
+		email = user.getEmail();
 		user.getRoles().forEach(role -> this.rolesDto.add(new RoleDTO(role)));
 	}
 

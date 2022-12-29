@@ -24,9 +24,9 @@ public class RoleDTO implements Serializable{
 		authority = role.getAuthority();
 	}
 	
-	public RoleDTO (RoleDTO roleDto) {
-		id = roleDto.getId();
-		authority = roleDto.getAuthority();
+	public RoleDTO (RoleDTO role) {
+		id = role.getId();
+		authority = role.getAuthority();
 	}
 
 }

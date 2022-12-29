@@ -21,6 +21,7 @@ public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	
 	@Size(min = 1, max = 60, message = "Please insert a valid name.")
 	@NotBlank(message = "Please insert your first name.")
 	private String firstName;
@@ -28,14 +29,14 @@ public class UserDTO implements Serializable{
 	@Email(message = "Please insert a valid email.")
 	private String email;
 	
-	Set<RoleDTO> rolesDto = new HashSet<>();
+	Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO(User user) {
 		id = user.getId();
 		firstName = user.getFirstName();
 		lastName = user.getLastName();
 		email = user.getEmail();
-		user.getRoles().forEach(role -> this.rolesDto.add(new RoleDTO(role)));
+		user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
 	public UserDTO(Long id, String firstName, String lastName, String email) {

@@ -67,15 +67,11 @@ public class UserService {
 	
 	@Transactional
 	public UserDTO insert(UserInsertDTO dto) {
-		try{
 		User entity = new User();
 		copyDtoToEntity(dto, entity);
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = repository.save(entity);
 		return new UserDTO(entity);
-		}catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Entity was not found.");
-		}
 	}
 	
 	@Transactional
@@ -105,12 +101,13 @@ public class UserService {
 	
 	
 	private void copyDtoToEntity(UserDTO dto, User entity) {
-		entity.setEmail(dto.getEmail());
+		
 		entity.setFirstName(dto.getFirstName());
 		entity.setLastName(dto.getLastName());
+		entity.setEmail(dto.getEmail());
 		
 		entity.getRoles().clear();
-		for (RoleDTO roleDto: dto.getRolesDto()){
+		for (RoleDTO roleDto: dto.getRoles()){
 			Role role = roleRepository.getOne(roleDto.getId());
 			entity.getRoles().add(role);
 		}

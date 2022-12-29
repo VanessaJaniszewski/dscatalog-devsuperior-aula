@@ -1,11 +1,12 @@
 package com.devsuperior.dscatalog.resources;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,17 +29,17 @@ public class UserResource {
 	@Autowired
 	private UserService service;
 	
-//	@GetMapping
-//	public ResponseEntity<Page<UserDTO>>findAllPageable(Pageable pageable){
-//	Page<UserDTO> list = service.findAllPaged(pageable);
-//	return ResponseEntity.ok().body(list);
-//	}
-	
 	@GetMapping
-	public ResponseEntity<List<UserDTO>>findAll(){
-		List<UserDTO> listDto = service.findAll();
-		return ResponseEntity.ok().body(listDto);
+	public ResponseEntity<Page<UserDTO>>findAll(Pageable pageable){
+	Page<UserDTO> list = service.findAllPaged(pageable);
+	return ResponseEntity.ok().body(list);
 	}
+	
+//	@GetMapping
+//	public ResponseEntity<List<UserDTO>>findAll(){
+//		List<UserDTO> listDto = service.findAll();
+//		return ResponseEntity.ok().body(listDto);
+//	}
 //	
 	@GetMapping(value= "/{id}")
 	public ResponseEntity<UserDTO> findByID(@PathVariable Long id){
@@ -47,7 +48,7 @@ public class UserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto){
+	public ResponseEntity<UserDTO> insert(@RequestBody @Valid  UserInsertDTO dto){
 		UserDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();

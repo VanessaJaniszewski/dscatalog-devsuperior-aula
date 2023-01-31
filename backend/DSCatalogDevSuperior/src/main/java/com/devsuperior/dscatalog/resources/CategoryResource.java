@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +42,8 @@ public class CategoryResource {
 	
 	@GetMapping
 	public ResponseEntity<Page<CategoryDTO>>findAll(Pageable pageable){
-	Page<CategoryDTO> list = service.findAllPaged(pageable);
+	PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name"));
+	Page<CategoryDTO> list = service.findAllPaged(pageRequest);
 	return ResponseEntity.ok().body(list);
 	}
 	
